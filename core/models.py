@@ -6,7 +6,6 @@ from datetime import datetime, date
 
 
 
-# Create your models here.
 
 class User(models.Model):
     first_name = models.CharField(max_length=127)
@@ -17,11 +16,10 @@ class User(models.Model):
     personal_email = models.EmailField(null=True, blank=True)
     designation = models.CharField(max_length=215, null=True, blank=True)
     is_individual = models.BooleanField(default=True)
-    # category = models.CharField(choices=[('student','student'),('customer','cunstomer'),('teacher','teacher')])
+    category = models.CharField(choices=[('student','student'),('customer','cunstomer'),('teacher','teacher')])
 
     def __unicode__(self):
         return "{} {}".format(self.first_name,self.last_name)
-
 
 
 class Organisation(models.Model):
@@ -29,7 +27,7 @@ class Organisation(models.Model):
     name = models.CharField(max_length=128, unique=True)
     type = models.CharField(choices=[("Private",'Private'),('Government','Government')], max_length=31, default="Private")
     company_email = models.EmailField(max_length=31,null=True,blank=True)
-    # contact_no = models.ForeignKey(PhoneNumber, related_name="company_contact_no", null=True, blank=True)
+    company_contact_number = models.ForeignKey(PhoneNumber, null=True)
 
     def __unicode__(self):
         return self.name
@@ -48,7 +46,6 @@ class Address(models.Model):
 class PhoneNumber(models.Model):
     user = models.ForeignKey(User, related_name="user_contact_no")
     phone_number = models.CharField(max_length=10)
-    # organisation = models.ForeignKey(Organisation,)
 
 
     def __unicode__(self):
